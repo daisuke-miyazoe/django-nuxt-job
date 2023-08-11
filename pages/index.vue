@@ -1,3 +1,8 @@
+<script setup>
+  const {data: jobs } = await useFetch('http://127.0.0.1:8002/api/v1/jobs/newest/')
+  console.log(jobs.value)
+</script>
+
 <template>
   <div class="py-20 px-6 bg-teal-700 text-center">
     <h1 class="mb-12 text-5xl text-white">Find a job anywhere</h1>
@@ -9,25 +14,10 @@
     <h2 class="mb-8 text-2xl text-center">Newest jobs</h2>
 
     <div class="space-y-4">
-      <div class="p-6 flex items-center justify-between bg-gray-100 rounded-xl">
-        <div>
-          <h3 class="mb-2 text-xl font-semibold">The job position</h3>
-          <p class="text-gray-600">The company name</p>
-        </div>
-
-        <div>
-          <p class="mb-2">Worldwide</p>
-          <p>$90k-120k</p>
-        </div>
-
-        <div>
-          <p>Posted Dec. 1. 2022</p>
-        </div>
-
-        <div>
-          <NuxtLink to="/browse/1" class="py-4 px-6 bg-teal-700 text-white rounded-xl">Detail</NuxtLink>
-        </div>
-      </div>
+      <Job v-for="job in jobs"
+      v-bind:key="job.id"
+      v-bind:job="job"
+    />
     </div>
   </div>
 </template>
